@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Anamika ❤️</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Georgia', serif;
+            overflow: hidden; /* Prevents scrolling when button moves */
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 35px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 85%;
+            z-index: 10;
+            border: 2px solid #ff4d6d;
+        }
+
+        h1 { color: #d63384; font-size: 2rem; margin-bottom: 10px; }
+        p { color: #444; line-height: 1.6; margin-bottom: 20px; }
+
+        /* This keeps the buttons separated and centered */
+        .btn-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px; /* This is the specific distance between Yes and No */
+            margin-top: 20px;
+            min-height: 60px;
+            position: relative;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            touch-action: manipulation; /* Optimizes for mobile tapping */
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        #noBtn {
+            background-color: #6c757d;
+            color: white;
+            /* No initial absolute positioning so it stays in the flex gap */
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #ff4d6d;
+        }
+
+        .hidden { display: none; }
+
+        .heart {
+            position: fixed;
+            top: -10%;
+            font-size: 20px;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <h1>Anamika... ❤️</h1>
+        <p>I'm so sorry for yesterday. I want to spend every moment making you feel like the most special girl in the world.</p>
+        <p><strong>Will you forgive me?</strong></p>
+        
+        <div class="btn-wrapper">
+            <button id="yesBtn" onclick="showSuccess()">Yes</button>
+            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()" ontouchstart="moveButton()">No</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="successCard">
+        <h1>I Love You! ❤️</h1>
+        <p>You've made me the happiest person alive, Anamika!</p>
+        <div class="gallery">
+            <img src="InFerry.jpeg" alt="Memory 1">
+            <img src="1stMeet.jpeg" alt="Memory 2">
+            <img src="AnamikaKingsuk.jpeg" alt="Memory 3">
+            <img src="SpecialMoment.jpeg" alt="Memory 4">
+        </div>
+        <p style="margin-top:15px; font-style: italic;">"Ours is my favorite love story."</p>
+    </div>
+
+    <script>
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            
+            // Once the button is hovered/touched, we switch it to absolute 
+            // so it can jump anywhere on the screen
+            btn.style.position = 'fixed';
+            
+            // Calculate random coordinates
+            const maxX = window.innerWidth - btn.offsetWidth - 20;
+            const maxY = window.innerHeight - btn.offsetHeight - 20;
+            
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            
+            btn.style.left = newX + 'px';
+            btn.style.top = newY + 'px';
+        }
+
+        function showSuccess() {
+            document.getElementById('mainCard').classList.add('hidden');
+            document.getElementById('noBtn').style.display = 'none';
+            document.getElementById('successCard').classList.remove('hidden');
+            setInterval(createHeart, 300);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
